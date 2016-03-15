@@ -11,6 +11,7 @@ import React, {
   View,
   ProgressBarAndroid,
   TouchableNativeFeedback,
+  ToastAndroid,
 } from 'react-native';
 
 class Codemotion extends Component {
@@ -32,7 +33,7 @@ class Codemotion extends Component {
               Welcome to Codemotion 2016!
             </Text>
             <TouchableNativeFeedback
-                onPress={() => console.log('123')}
+                onPress={() => ToastAndroid.show('PERL sucks', ToastAndroid.SHORT)}
                 background={TouchableNativeFeedback.SelectableBackground()}>
                 <View>
                   <Text style={styles.instructions}>
