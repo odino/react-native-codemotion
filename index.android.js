@@ -10,6 +10,7 @@ import React, {
   Text,
   View,
   ProgressBarAndroid,
+  TouchableNativeFeedback,
 } from 'react-native';
 
 class Codemotion extends Component {
@@ -30,12 +31,15 @@ class Codemotion extends Component {
             <Text style={styles.welcome}>
               Welcome to Codemotion 2016!
             </Text>
-            <Text style={styles.instructions}>
-              To get started, edit index.android.js
-            </Text>
-            <Text style={styles.instructions}>
-              Shake or press menu button for dev menu
-            </Text>
+            <TouchableNativeFeedback
+                onPress={() => console.log('123')}
+                background={TouchableNativeFeedback.SelectableBackground()}>
+                <View>
+                  <Text style={styles.instructions}>
+                    To get started, edit index.android.js
+                  </Text>
+                </View>
+            </TouchableNativeFeedback>
           </View>
         )
     }
