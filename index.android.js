@@ -12,9 +12,10 @@ import React, {
   ProgressBarAndroid,
   TouchableNativeFeedback,
   ToastAndroid,
+  Navigator,
 } from 'react-native';
 
-class Codemotion extends Component {
+class Intro extends Component {
   constructor(props) {
     super(props);
 
@@ -50,6 +51,25 @@ class Codemotion extends Component {
         <ProgressBarAndroid />
       </View>
     );
+  }
+}
+
+var ROUTES = {
+  intro: Intro
+}
+
+class Codemotion extends Component {
+  render() {
+    return (
+      <Navigator
+          initialRoute={{name: 'intro', index: 0}}
+          renderScene={function(route, navigator){
+            var Scene = ROUTES[route.name]
+
+            return <Scene />
+          }}
+        />
+    )
   }
 }
 
