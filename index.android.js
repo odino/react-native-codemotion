@@ -47,8 +47,21 @@ class Demo extends Component {
               </Text>
             </View>
         </TouchableNativeFeedback>
+        <TouchableNativeFeedback
+            onPress={this.somethingNew}
+            background={TouchableNativeFeedback.SelectableBackground()}>
+            <View>
+              <Text style={styles.instructions}>
+                Tell me something new?
+              </Text>
+            </View>
+        </TouchableNativeFeedback>
       </View>
     )
+  }
+
+  somethingNew() {
+    console.log('1234')
   }
 }
 
