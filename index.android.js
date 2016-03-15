@@ -13,13 +13,14 @@ import React, {
   TouchableNativeFeedback,
   ToastAndroid,
   Navigator,
+  Animated,
 } from 'react-native';
 
 class Intro extends Component {
   constructor(props) {
     super(props);
 
-    setTimeout(() => this.props.navigator.push({name: 'demo'}), 2000)
+    setTimeout(() => this.props.navigator.push({name: 'demo'}), 1000)
   }
 
   render() {
@@ -32,6 +33,12 @@ class Intro extends Component {
 }
 
 class Demo extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {show: false}
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -48,21 +55,58 @@ class Demo extends Component {
             </View>
         </TouchableNativeFeedback>
         <TouchableNativeFeedback
-            onPress={this.somethingNew}
+            onPress={() => this.setState({show: !this.state.show})}
             background={TouchableNativeFeedback.SelectableBackground()}>
             <View>
               <Text style={styles.instructions}>
                 Tell me something new?
               </Text>
+              <Fader show={this.state.show} from={0} to={1} >
+                <Text style={styles.instructions}>
+                  PHP also sucks!
+                </Text>
+              </Fader>
             </View>
         </TouchableNativeFeedback>
       </View>
     )
   }
+}
 
-  somethingNew() {
-    console.log('1234')
-  }
+class Fader extends Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        opacity: new Animated.Value(this.props.from),
+        show: false
+      };
+    }
+
+    render() {
+      return (
+        <Animated.View
+          style={{
+            flex: 1,
+            opacity: this.state.opacity
+          }}
+        >
+          {this.props.children}
+        </Animated.View>
+      );
+    }
+
+    componentWillReceiveProps(props) {
+      if (props.show) {
+        Animated.timing(
+          this.state.opacity, {toValue: this.props.to, duration: 400}
+        ).start();
+      } else if (this.state.opacity.__getValue() > this.props.from) {
+        Animated.timing(
+          this.state.opacity, {toValue: this.props.from, duration: 400}
+        ).start();
+      }
+    }
 }
 
 var ROUTES = {
