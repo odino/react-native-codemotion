@@ -19,33 +19,10 @@ class Intro extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      loaded: false
-    }
-
-    setTimeout(() => this.setState({loaded: true}), 2000)
+    setTimeout(() => this.props.navigator.push({name: 'demo'}), 2000)
   }
 
   render() {
-    if (this.state.loaded) {
-        return (
-          <View style={styles.container}>
-            <Text style={styles.welcome}>
-              Welcome to Codemotion 2016!
-            </Text>
-            <TouchableNativeFeedback
-                onPress={() => ToastAndroid.show('PERL sucks', ToastAndroid.SHORT)}
-                background={TouchableNativeFeedback.SelectableBackground()}>
-                <View>
-                  <Text style={styles.instructions}>
-                    To get started, edit index.android.js
-                  </Text>
-                </View>
-            </TouchableNativeFeedback>
-          </View>
-        )
-    }
-
     return (
       <View style={styles.container}>
         <ProgressBarAndroid />
@@ -54,8 +31,30 @@ class Intro extends Component {
   }
 }
 
+class Demo extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Welcome to Codemotion 2016!
+        </Text>
+        <TouchableNativeFeedback
+            onPress={() => ToastAndroid.show('PERL sucks', ToastAndroid.SHORT)}
+            background={TouchableNativeFeedback.SelectableBackground()}>
+            <View>
+              <Text style={styles.instructions}>
+                To get started, edit index.android.js
+              </Text>
+            </View>
+        </TouchableNativeFeedback>
+      </View>
+    )
+  }
+}
+
 var ROUTES = {
-  intro: Intro
+  intro: Intro,
+  demo: Demo
 }
 
 class Codemotion extends Component {
@@ -66,7 +65,7 @@ class Codemotion extends Component {
           renderScene={function(route, navigator){
             var Scene = ROUTES[route.name]
 
-            return <Scene />
+            return <Scene navigator={navigator} />
           }}
         />
     )
