@@ -109,6 +109,38 @@ class Fader extends Component {
     }
 }
 
+class Playground extends React.Component {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      bounceValue: new Animated.Value(0),
+    };
+  }
+  render(): ReactElement {
+    return (
+      <Animated.Image                         // Base: Image, Text, View
+        source={{uri: 'http://38.media.tumblr.com/edab93d1e50358c0a924931e690acef5/tumblr_inline_ne5hcg5VLD1sj1lrd.jpg'}}
+        style={{
+          flex: 1,
+          transform: [                        // `transform` is an ordered array
+            {scale: this.state.bounceValue},  // Map `bounceValue` to `scale`
+          ]
+        }}
+      />
+    );
+  }
+  componentDidMount() {
+    this.state.bounceValue.setValue(100);     // Start large
+    Animated.spring(                          // Base: spring, decay, timing
+      this.state.bounceValue,                 // Animate `bounceValue`
+      {
+        toValue: 1,                         // Animate to smaller size
+        friction: 100 ,                          // Bouncier spring
+      }
+    ).start();                                // Start the animation
+  }
+}
+
 var ROUTES = {
   intro: Intro,
   demo: Demo
@@ -122,7 +154,7 @@ class Codemotion extends Component {
           renderScene={function(route, navigator){
             var Scene = ROUTES[route.name]
 
-            return <Scene navigator={navigator} />
+            return <Playground />
           }}
         />
     )
