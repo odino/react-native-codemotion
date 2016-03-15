@@ -8,22 +8,41 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View
+  View,
+  ProgressBarAndroid,
 } from 'react-native';
 
 class Codemotion extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loaded: false
+    }
+
+    setTimeout(() => this.setState({loaded: true}), 2000)
+  }
+
   render() {
+    if (this.state.loaded) {
+        return (
+          <View style={styles.container}>
+            <Text style={styles.welcome}>
+              Welcome to Codemotion 2016!
+            </Text>
+            <Text style={styles.instructions}>
+              To get started, edit index.android.js
+            </Text>
+            <Text style={styles.instructions}>
+              Shake or press menu button for dev menu
+            </Text>
+          </View>
+        )
+    }
+
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to Codemotion 2016!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
+        <ProgressBarAndroid />
       </View>
     );
   }
