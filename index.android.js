@@ -14,7 +14,10 @@ import React, {
   ToastAndroid,
   Navigator,
   Animated,
+  Dimensions,
 } from 'react-native';
+
+var {height, width} = Dimensions.get('window');
 
 class Intro extends Component {
   constructor(props) {
@@ -119,9 +122,10 @@ class Playground extends React.Component {
   render(): ReactElement {
     return (
       <Animated.Image                         // Base: Image, Text, View
-        source={{uri: 'http://38.media.tumblr.com/edab93d1e50358c0a924931e690acef5/tumblr_inline_ne5hcg5VLD1sj1lrd.jpg'}}
+        source={require('./ops.jpg')}
         style={{
           flex: 1,
+          width: width,
           transform: [                        // `transform` is an ordered array
             {scale: this.state.bounceValue},  // Map `bounceValue` to `scale`
           ]
@@ -135,7 +139,7 @@ class Playground extends React.Component {
       this.state.bounceValue,                 // Animate `bounceValue`
       {
         toValue: 1,                         // Animate to smaller size
-        friction: 100 ,                          // Bouncier spring
+        friction: 100,                          // Bouncier spring
       }
     ).start();                                // Start the animation
   }
